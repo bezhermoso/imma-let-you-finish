@@ -18,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.post('*', function immaLetYouFinish (req, res) {
   var data = req.body;
 
+  console.log(JSON.stringify(data));
   // if the token doesn't match, the request is not coming from Slack. 401 = unauthorized
   if (process.env.OUTGOING_WEBHOOK_TOKEN && data.token !== process.env.OUTGOING_WEBHOOK_TOKEN) {
     return res.status(401).end();
@@ -55,6 +56,10 @@ app.post('*', function immaLetYouFinish (req, res) {
     console.log('Yeah, yeah. Whatever. ['+probability+']');
     return res.status(200).end();
   }
+});
+
+app.get("/token", function (req, res) {
+  res.status(200).send(process.env.OUTGOING_WEBHOOK_TOKEN);
 });
 
 // kanye also replies to everyone else doing a get request.
