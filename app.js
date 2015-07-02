@@ -35,8 +35,9 @@ app.post('*', function immaLetYouFinish (req, res) {
   userName = req.body.user_name;
 
   // there's a 0.5% chance of interrupting the conversation.
+  // Bez: Increased to 5% probability
   var probability = Math.random();
-  if (probability <= 0.005) {
+  if (probability <= 0.05) {
 
     // kanye west's response
     var botResponse = {
