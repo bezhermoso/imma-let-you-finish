@@ -11,6 +11,19 @@ var userName = 'Beyonce';
 // Need this to get user's ip address correctly.
 app.enable('trust proxy');
 
+app.use(function(req, res, next) {
+  req.rawBody = '';
+  req.setEncoding('utf8');
+
+  req.on('data', function(chunk) { 
+    req.rawBody += chunk;
+  });
+
+  req.on('end', function() {
+    console.log(req.rawBody);
+    next();
+  });
+});
 // body parser middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 
